@@ -1,4 +1,4 @@
-@import '~antd/lib/style/themes/default.less';
+@import '~antd/es/style/themes/default.less';
 
 html,
 body,
@@ -14,24 +14,138 @@ body,
   min-height: 100vh;
 }
 
-canvas {
-  display: block;
-}
-
 body {
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
 }
 
-.globalSpin {
-  width: 100%;
-  margin: 40px 0 !important;
+* {
+  margin: 0;
+  padding: 0
 }
 
-ul,
-ol {
+ul li {
   list-style: none;
+}
+
+/**滚动条样式**/
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+  background-color: #F5F5F5;
+}
+
+/*定义滚动条轨道 内阴影+圆角*/
+::-webkit-scrollbar-track {
+  border-radius: 2px;
+  background-color: #F5F5F5;
+}
+
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: #ccc;
+}
+
+/**ant 表格样式**/
+.wrap-table {
+  background-color: #fff;
+}
+
+.ant-table-wrapper {
+  background-color: #fff !important
+}
+
+.ant-table-body {
+  background-color: #fff !important;
+}
+
+.ant-layout-content {
+  margin: 10px 10px 0 10px !important;
+}
+
+.ant-table-thead>tr>th,
+.ant-table-body tr td {
+  text-align: center !important
+}
+
+
+/**界面空白区域**/
+.ant-layout {
+  background: #F5F5F5 !important;
+}
+
+/**弹性盒子布局**/
+/** 伸缩盒子盒子 **/
+
+.qui-fx {
+  display: flex;
+}
+
+.qui-fx-ver {
+  display: flex;
+  flex-direction: column;
+}
+
+/**水平垂直居中**/
+.qui-fx-ac-jc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/**垂直居中**/
+.qui-fx-ac {
+  display: flex;
+  align-items: center;
+}
+
+/**垂直居下**/
+.qui-fx-ae {
+  display: flex;
+  align-items: flex-end;
+}
+
+/**水平居中**/
+.qui-fx-jc {
+  display: flex;
+  justify-content: center;
+}
+
+/**水平居右**/
+.qui-fx-je {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/**水平两端对齐**/
+.qui-fx-jsb {
+  display: flex;
+  justify-content: space-between;
+}
+
+/**水平等间距对齐**/
+.qui-fx-jsa {
+  display: flex;
+  justify-content: space-around;
+}
+
+/**水平换行**/
+.qui-fx-wp {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.qui-fx-f1 {
+  min-width: 0px;
+  flex: 1;
+  position: relative;
+}
+
+.qui-fx-f2 {
+  min-width: 0px;
+  flex: 2;
+  position: relative;
 }
 
 @media (max-width: @screen-xs) {
@@ -48,5 +162,21 @@ ol {
         }
       }
     }
+  }
+}
+.ant-pro-sider-menu-logo {
+  background: #002140 !important;
+  img {
+    display: none !important
+  }
+}
+.ant-layout-footer {
+  display: none !important;
+}
+.ant-pro-basicLayout-content {
+  margin: 10px !important;
+  display: flex;
+  & > div {
+    flex: 1;
   }
 }
