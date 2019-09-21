@@ -1,10 +1,13 @@
 import { IConfig, IPlugin } from 'umi-types';
 import defaultSettings from './defaultSettings'; // https://umijs.org/config/
-
+import routerList from './router'
 import slash from 'slash2';
 import webpackPlugin from './plugin.config';
 const { pwa, primaryColor } = defaultSettings;
-
+const path = require('path')
+function resolve(dir: any) {
+  return path.join(__dirname, dir)
+}
 // preview.pro.ant.design only do not use in your production ;
 // preview.pro.ant.design 专用环境变量，请不要在你的项目中使用它。
 const { ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION } = process.env;
@@ -56,6 +59,7 @@ export default {
     defaultGitUrl: 'https://github.com/ant-design/pro-blocks',
   },
   hash: true,
+  history: 'hash',
   targets: {
     ie: 11,
   },
@@ -64,7 +68,7 @@ export default {
   routes: [
     {
       path: '/',
-      component: './user/Login',
+      component: './Login',
     },
     {
       path: '/',
@@ -73,34 +77,11 @@ export default {
         {
           path: '/home',
           name: 'home',
+          icon: 'home',
           component: './Home',
         },
-        {
-          path: '/list',
-          name: 'list',
-          component: './List',
-        },
-        {
-          path: '/manage',
-          icon: 'smile',
-          name: 'manage',
-          routes: [
-            {
-              path: '/manage/accountList',
-              name: 'accountList',
-              component: './manage/AccountList',
-              meta: {
-                title: 'hah',
-              },
-            },
-            {
-              path: '/manage/userList',
-              name: 'userList',
-              component: './manage/UserList',
-            },
-          ],
-        },
-      ],
+        ...routerList
+      ]
     },
     {
       component: './404',
@@ -146,9 +127,17 @@ export default {
           .map((a: string) => a.toLowerCase());
         return `antd-pro${arr.join('-')}-${localName}`.replace(/--/g, '-');
       }
-
       return localName;
     },
+  },
+  alias: {
+    '@c': path.resolve(__dirname, '../src/pages/components/common'),
+    '@cs': path.resolve(__dirname, '../src/pages/components'),
+    '@p': path.resolve(__dirname, '../src/pages'),
+    '@a': path.resolve(__dirname, '../src/pages'),
+    '@u': path.resolve(__dirname, '../src/utils'),
+    '@s': path.resolve(__dirname, '../src/pages/store'),
+    '@m': path.resolve(__dirname, '../src/models')
   },
   manifest: {
     basePath: '/',
