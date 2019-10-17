@@ -38,9 +38,8 @@ const showToast = (tip = '') => {
 function responseRes(res) {
   // 清除加载
   setTimeout(loading, 0)
-  return new Promise((resolve, reject) => {
     if (res.code === 200 || res.status === true) {
-      resolve(res)
+      return res
     } else if (res.code === 401) {
       Modal.warning({
         title: '提示',
@@ -54,13 +53,12 @@ function responseRes(res) {
         title: '提示',
         content: res.message
       })
-      reject(res)
+      return res
     }
-  })
 }
 const $ajax = {
-  async get(obj, tag = true) {
-    if (tag) showToast()
+  async get(obj) {
+    if (obj.isLoad) showToast()
     try {
       let res = await axios.get(obj.url, {
         params: obj.params || ''
@@ -71,8 +69,8 @@ const $ajax = {
       return responseRes(err.response.data)
     }
   },
-  async postForm(obj, tag = true) {
-    if (tag) showToast()
+  async postForm(obj) {
+    if (obj.isLoad) showToast()
     try {
       let res = await axios.post(obj.url, qs.stringify(obj.params))
       res = res.data
@@ -81,7 +79,8 @@ const $ajax = {
       return responseRes(err.response.data)
     }
   },
-  async post(obj, tag = true) {
+  async post(obj) {
+    if (obj.isLoad) showToast()
     try {
       let res = await axios({
         url: obj.url,

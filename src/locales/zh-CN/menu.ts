@@ -2,6 +2,7 @@ export default {
   'menu.home': '组件',
   'menu.form': '表单',
   'menu.form.submitForm': '表单提交',
+  'menu.form.uploadFile': '图片上传',
   'menu.manage': '用户管理',
   'menu.manage.accountList': '账号管理',
   'menu.manage.userList': '用户管理',

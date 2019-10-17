@@ -5,7 +5,7 @@
 import { Modal } from 'antd'
 const Tools = {
   // 获取日期时间
-  getDateTime(val: any, type = 'dateTime') {
+  getDateTime(val, type = 'dateTime') {
     const d = new Date(val)
     let date =  d.getFullYear() + '-' + ((d.getMonth() + 1) > 9 ? d.getMonth() + 1 : '0' + (d.getMonth() + 1)) + '-' + (d.getDate() > 9 ? d.getDate() : '0' + d.getDate()) + ' ' +
         (d.getHours() > 9 ? d.getHours() : '0' + d.getHours()) + ':' + (d.getMinutes() > 9 ? d.getMinutes() : '0' +
@@ -24,6 +24,7 @@ const Tools = {
     if (document.getElementById(id)) {
       return document.getElementById(id).offsetHeight - 55
     }
+    return false
   },
   // 延迟处理方法
   goNext: (fn:any) => {
@@ -32,8 +33,9 @@ const Tools = {
     }, 1200)
   },
   // 删除提示
-  delTip (title = '确定删除吗?', fn) {
-    Modal.$confirm({
+  delTip (tip : string, fn:any) {
+    const title = tip || '您确定删除吗?';
+    Modal.confirm({
       title,
       okText: '确定',
       okType: 'danger',
@@ -44,8 +46,8 @@ const Tools = {
     })
   },
   // 表单回填
-  fillForm (autoForm, record) {
-    return autoForm.map(item => {
+  fillForm (autoForm: any, record:any) {
+    return autoForm.map((item : any) => {
       var initValue
       initValue = record[item.value] || ''
       if (item.type === 'rangeTime') {

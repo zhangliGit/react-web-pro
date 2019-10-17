@@ -6,22 +6,22 @@ export default class TableList extends Component {
   constructor(props: any) {
     super(props);
     this.state = {
-      selectedRowKeys: [1]
+      chooseValue: this.props.chooseValue || []
     };
-  }
-  change(values: any) {
-    console.log(values)
   }
   render() {
-    const rowSelection = {
-      onChange: (selectedRowKeys: any) => {
-        this.setState({
-          selectedRowKeys
-        });
-      },
-      selectedRowKeys: this.state.selectedRowKeys,
-      type: 'checkbox',
-    };
+    const rowSelection = null
+    if (this.props.type) {
+      rowSelection = {
+        onChange: (selectedRowKeys: any) => {
+          this.setState({
+            chooseValue: selectedRowKeys,
+          });
+        },
+        selectedRowKeys: this.state.chooseValue,
+        type: this.props.type
+      };
+    }
     return (
       <div className="qui-fx-f1" id="tableList">
         <Table

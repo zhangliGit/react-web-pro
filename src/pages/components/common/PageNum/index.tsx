@@ -11,8 +11,8 @@ export default class PageNum extends Component {
         <Pagination
           total={this.props.total}
           defaultPageSize={20}
-          onShowSizeChange={(page, pageSize) => this.props.change({ page, pageSize })}
-          onChange={(page, pageSize) => this.props.change({ page, pageSize })}
+          onShowSizeChange={(page, size) => this.props.change({ page, size })}
+          onChange={(page, size) => this.props.change({ page, size })}
           showSizeChanger
           showQuickJumper
         />

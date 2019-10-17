@@ -8,57 +8,83 @@ class NormalLoginForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err:any, values:object) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        for (let key in values) {
+          if (Object.prototype.toString.call(values[key]) === "[object Object]") {
+            values[key] = values[key].format('YYYY-MM-DD')
+          }
+          if (typeof values[key] === 'undefined') {
+            values[key] = ''
+          }
+          if (Array.isArray(values[key])) {
+            values[key] = [values[key][0].format('YYYY-MM-DD'), values[key][1].format('YYYY-MM-DD')]
+          }
+        }
+        this.props.searchForm(values)
       }
     })
-  };
-
+  }
   render() {
     const { getFieldDecorator } = this.props.form
     return (
       <div className="qui-fx" style={{padding: '15px 10px'}}>
         <div>
-          <Button type="primary">新增</Button>
+         { this.props.left }
         </div>
         <div className="qui-fx-f1 qui-fx-je">
           <Form onSubmit={this.handleSubmit} className="login-form" layout="inline">
-            <Form.Item label="用户名">
-              {getFieldDecorator('username', {
-                rules: [{ required: false, message: '请输入用户名' }],
-              })(<Input placeholder="请输入姓名" />)}
-            </Form.Item>
-            <Form.Item label="性别">
-              {getFieldDecorator('gender', {
-                initialValue: '',
-                rules: [{ required: false, message: '' }],
-              })(
-                <Select
-                  style={{ width: '100px' }}
-                  placeholder="Select a option and change input text above"
-                >
-                  <Option value="">全部</Option>
-                  <Option value="male">男</Option>
-                  <Option value="female">女</Option>
-                </Select>,
-              )}
-            </Form.Item>
-            <Form.Item label="日期">
-              {getFieldDecorator('date', {
-                rules: [{ type: 'object', required: false, message: '请选择时间' }],
-              })(<DatePicker format="YYYY-MM-DD" />)}
-            </Form.Item>
-            <Form.Item label="起始日期">
-              {getFieldDecorator('dateTime', {
-                rules: [{ type: 'array', required: false, message: '请选择时间' }],
-              })(<RangePicker format="YYYY-MM-DD" />)}
-            </Form.Item>
+            {
+              this.props.searchLabel.map((item, index) => {
+                if (item.type === 'input') {
+                  return (
+                    <Form.Item label={item.label} key={index}>
+                      {getFieldDecorator(item.value)(<Input placeholder={item.placeholder} />)}
+                    </Form.Item>
+                  );
+                } else if (item.type === 'select') {
+                  return (
+                    <Form.Item label={item.label} key={index}>
+                      {getFieldDecorator(item.value, {
+                        initialValue: '',
+                        rules: [{ required: false, message: '' }],
+                      })(
+                        <Select style={{ width: '100px' }} placeholder="全部">
+                          {item.list.map(opt => {
+                            return (
+                              <Option key={opt.key} value={opt.key}>
+                                {opt.val}
+                              </Option>
+                            );
+                          })}
+                        </Select>,
+                      )}
+                    </Form.Item>
+                  );
+                } else if (item.type === 'singleTime') {
+                  return (
+                    <Form.Item label={item.label} key={index}>
+                      {getFieldDecorator(item.value, {
+                        rules: [{ type: 'object', required: false, message: '请选择时间' }],
+                      })(<DatePicker format="YYYY-MM-DD" />)}
+                    </Form.Item>
+                  );
+                } else if (item.type === 'rangeTime') {
+                  return (
+                    <Form.Item label={item.label} key={index}>
+                      {getFieldDecorator(item.value, {
+                        rules: [{ type: 'array', required: false, message: '请选择时间' }],
+                      })(<RangePicker format="YYYY-MM-DD" />)}
+                    </Form.Item>
+                  );
+                }
+              })
+            }
             <Form.Item>
               <Button type="primary" htmlType="submit">
                 搜索
               </Button>
+              {this.props.right}
             </Form.Item>
           </Form>
-          <div></div>
         </div>
       </div>
     );

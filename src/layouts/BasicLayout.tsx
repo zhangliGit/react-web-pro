@@ -18,7 +18,6 @@ import { formatMessage } from 'umi-plugin-react/locale';
 import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import { ConnectState } from '@/models/connect';
-import { isAntDesignPro } from '@/utils/utils';
 
 export interface BasicLayoutProps extends ProLayoutProps {
   breadcrumbNameMap: {
