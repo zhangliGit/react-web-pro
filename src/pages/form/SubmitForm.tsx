@@ -7,6 +7,7 @@ import PageNum from '@c/PageNum'
 import SubmitForm from '@c/SubmitForm';
 import UploadMulti from '@c/UploadMulti';
 import Tools from '@u/utils';
+import styles from './index.less'
 
 
 export default class SubmitFormCom extends Component {
@@ -210,11 +211,11 @@ export default class SubmitFormCom extends Component {
     {
       list: [
         {
-          key: 1,
+          key: 'A',
           val: '篮球',
         },
         {
-          key: 2,
+          key: 'B',
           val: '羽毛球',
         },
       ],
@@ -244,11 +245,12 @@ export default class SubmitFormCom extends Component {
   ];
   actionForm = (type: number, values = {}, cb: any) => {
     if (type) {
-      if (this.state.fileList.length === 0) {
-        message.warning('请上传图片');
-        return;
-      }
+      // if (this.state.fileList.length === 0) {
+      //   message.warning('请上传图片');
+      //   return;
+      // }
       setTimeout(() => {
+        console.log(values)
         this.setState({
           isShow: false,
         });
@@ -280,18 +282,18 @@ export default class SubmitFormCom extends Component {
           formData={this.formData}
           isShow={this.state.isShow}
         >
-          <Row className="qui-fx" style={{marginBottom: '10px'}}>
-            <Col span={4} style={{color: "#333", textAlign: 'right', paddingRight: '8px'}}>
-            <span style={{color: 'red'}}>*</span>
-            上传图片:
+          <Row className="qui-fx" style={{ marginBottom: '10px' }}>
+            <Col span={4} style={{ color: '#333', textAlign: 'right', paddingRight: '8px' }}>
+              <span style={{ color: 'red' }}>*</span>
+              上传图片:
             </Col>
             <Col span={20}>
               <UploadMulti
-              fileList={this.state.fileList}
-              getFile={this.getFile}
-              fileInfo={this.fileInfo}
-              length={3}
-            ></UploadMulti>
+                fileList={this.state.fileList}
+                getFile={this.getFile}
+                fileInfo={this.fileInfo}
+                length={3}
+              ></UploadMulti>
             </Col>
           </Row>
         </SubmitForm>

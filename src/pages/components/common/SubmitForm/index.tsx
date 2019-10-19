@@ -70,7 +70,7 @@ class SubmitForm extends Component {
           {this.props.formData.map((item, index) => {
             if (item.type === 'input') {
               return (
-                <Form.Item label={item.label} key={Math.random() * 10000}>
+                <Form.Item label={item.label} key={item.value}>
                   {getFieldDecorator(item.value, {
                     initialValue: item.initValue,
                     rules: [
@@ -84,7 +84,7 @@ class SubmitForm extends Component {
               );
             } else if (item.type === 'select') {
               return (
-                <Form.Item label={item.label} key={Math.random() * 10000}>
+                <Form.Item label={item.label} key={item.value}>
                   {getFieldDecorator(item.value, {
                     initialValue: item.initValue || null,
                     rules: [{ required: item.required || true, message: item.placeholder }],
@@ -161,16 +161,14 @@ class SubmitForm extends Component {
                         {item.list.map((check:any) => {
                           return (
                             <Col
-                              key = {check.key}
+                              key={Math.random() * 10000}
                               span={
                                 24 % item.list.length == 0
                                   ? 24 / item.list.length
                                   : parseInt(24 / item.list.length)
                               }
                             >
-                              <Checkbox>
-                                {check.val}
-                              </Checkbox>
+                              <Checkbox value={check.key}>{check.val}</Checkbox>
                             </Col>
                           );
                         })}

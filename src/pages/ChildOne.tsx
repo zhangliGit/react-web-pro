@@ -3,6 +3,7 @@ import { connect } from 'dva';
 import { ConnectState, ConnectProps } from '@/models/connect';
 import ChildThree from './ChildThree';
 import { Button } from 'antd';
+import PropTyps from 'prop-types'
 
 interface SecurityLayoutProps extends ConnectProps {
   name: String;
@@ -13,8 +14,13 @@ interface SecurityLayoutState {
 }
 
 class ChildOne extends Component<SecurityLayoutProps, SecurityLayoutState> {
-  constructor(props) {
-    super(props);
+  static contextTypes = {
+    router: PropTyps.object.isRequired,
+    store: PropTyps.object.isRequired
+  };
+  constructor(props, context) {
+    super(props, context);
+    console.log('one', props, context);
     this.state = {
       title: '我是子组件一号',
     };
