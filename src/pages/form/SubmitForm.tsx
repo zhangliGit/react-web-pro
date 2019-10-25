@@ -173,6 +173,8 @@ export default class SubmitFormCom extends Component {
       value: 'name',
       label: '姓名',
       initValue: '',
+      len: 10,
+      disabled: true,
       placeholder: '请输入姓名',
     },
     {
@@ -229,6 +231,7 @@ export default class SubmitFormCom extends Component {
       type: 'upload',
     },
     {
+      disabled: true,
       type: 'singleTime',
       value: 'date',
       label: '日期',
@@ -266,6 +269,9 @@ export default class SubmitFormCom extends Component {
     this.setState({
       fileList
     })
+  }
+  clickRow = (id) => {
+    alert(id)
   }
   fileInfo = {
     url: '/upload/base/file/freeUpload', // 接口地址
@@ -306,6 +312,8 @@ export default class SubmitFormCom extends Component {
         <div className="qui-fx-f1 qui-fx">
           <TableList
             ref="table"
+            type="radio"
+            clickRow={this.clickRow}
             fileInfo={this.fileInfo}
             columns={this.columns}
             dataList={this.state.dataList}

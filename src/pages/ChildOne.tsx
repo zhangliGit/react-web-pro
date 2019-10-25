@@ -25,10 +25,13 @@ class ChildOne extends Component<SecurityLayoutProps, SecurityLayoutState> {
       title: '我是子组件一号',
     };
   }
-  setTitle() {
+  const setTitle = () => {
     this.setState({
       title: '我是新的标题',
     });
+  }
+  componentDidMount () {
+    console.log(this.refs.child3)
   }
   render() {
     console.log('compoonent props', this.props);
@@ -46,7 +49,7 @@ class ChildOne extends Component<SecurityLayoutProps, SecurityLayoutState> {
           修改标题
         </Button>
         <div>{this.props.name}</div>
-        <ChildThree title={this.props.title}></ChildThree>
+        <ChildThree ref="child3" title={this.props.title}></ChildThree>
       </div>
     );
   }

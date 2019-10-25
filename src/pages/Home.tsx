@@ -33,14 +33,15 @@ class Home extends Component<SecurityLayoutProps, SecurityLayoutState> {
   changeMsg = () => {
   };
   async getData () {
-    const res = await this.props.dispatch({
-      type: 'home/getIndex',
-      params: {
-        key: 'name',
-        data: 'haha'
-      },
-    })
-    console.log('res', res)
+    console.log(this.refs.childOne);
+    // const res = await this.props.dispatch({
+    //   type: 'home/getIndex',
+    //   params: {
+    //     key: 'name',
+    //     data: 'haha'
+    //   },
+    // })
+    // console.log('res', res)
   }
   changeChild = () => {
     this.props.dispath({

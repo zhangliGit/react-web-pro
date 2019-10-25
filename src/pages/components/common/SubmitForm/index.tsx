@@ -75,11 +75,13 @@ class SubmitForm extends Component {
                     initialValue: item.initValue,
                     rules: [
                       {
-                        required: item.required || true,
+                        len: item.len,
+                        max: item.max,
+                        required: !item.hasOwnProperty('required'),
                         message: item.placeholder,
                       },
                     ],
-                  })(<Input placeholder={item.placeholder} />)}
+                  })(<Input disabled={item.disabled} placeholder={item.placeholder} />)}
                 </Form.Item>
               );
             } else if (item.type === 'select') {
@@ -87,9 +89,11 @@ class SubmitForm extends Component {
                 <Form.Item label={item.label} key={item.value}>
                   {getFieldDecorator(item.value, {
                     initialValue: item.initValue || null,
-                    rules: [{ required: item.required || true, message: item.placeholder }],
+                    rules: [
+                      { required: !item.hasOwnProperty('required'), message: item.placeholder },
+                    ],
                   })(
-                    <Select placeholder={item.placeholder}>
+                    <Select placeholder={item.placeholder} disabled={item.disabled}>
                       {item.list.map((opt, index) => {
                         return (
                           <Option key={Math.random() * 10000} value={opt.key}>
@@ -109,11 +113,11 @@ class SubmitForm extends Component {
                     rules: [
                       {
                         type: 'object',
-                        required: item.required || true,
+                        required: !item.hasOwnProperty('required'),
                         message: item.placeholder,
                       },
                     ],
-                  })(<DatePicker format="YYYY-MM-DD" />)}
+                  })(<DatePicker disabled={item.disabled} format="YYYY-MM-DD" />)}
                 </Form.Item>
               );
             } else if (item.type === 'rangeTime') {
@@ -125,9 +129,13 @@ class SubmitForm extends Component {
                       moment(item.initValue[1] || new Date(), 'YYYY-MM-DD'),
                     ],
                     rules: [
-                      { type: 'array', required: item.required || true, message: item.placeholder },
+                      {
+                        type: 'array',
+                        required: !item.hasOwnProperty('required'),
+                        message: item.placeholder,
+                      },
                     ],
-                  })(<RangePicker format="YYYY-MM-DD" />)}
+                  })(<RangePicker disabled={item.disabled} format="YYYY-MM-DD" />)}
                 </Form.Item>
               );
             } else if (item.type === 'radio') {
@@ -135,10 +143,12 @@ class SubmitForm extends Component {
                 <Form.Item label={item.label}>
                   {getFieldDecorator(item.value, {
                     initialValue: item.initValue,
-                    rules: [{ required: item.required || true, message: item.placeholder }],
+                    rules: [
+                      { required: !item.hasOwnProperty('required'), message: item.placeholder },
+                    ],
                   })(
-                    <Radio.Group buttonStyle="solid">
-                      {item.list.map((rad:any) => {
+                    <Radio.Group buttonStyle="solid" disabled={item.disabled}>
+                      {item.list.map((rad: any) => {
                         return (
                           <Radio.Button value={rad.key} key={rad.key}>
                             {rad.val}
@@ -154,11 +164,16 @@ class SubmitForm extends Component {
                 <Form.Item label={item.label}>
                   {getFieldDecorator(item.value, {
                     initialValue: item.initValue,
-                    rules: [{ required: item.required || true, message: item.placeholder }],
+                    rules: [
+                      { required: !item.hasOwnProperty('required'), message: item.placeholder },
+                    ],
                   })(
-                    <Checkbox.Group style={{ width: '100%', marginTop: '9px' }}>
+                    <Checkbox.Group
+                      disabled={item.disabled}
+                      style={{ width: '100%', marginTop: '9px' }}
+                    >
                       <Row>
-                        {item.list.map((check:any) => {
+                        {item.list.map((check: any) => {
                           return (
                             <Col
                               key={Math.random() * 10000}
